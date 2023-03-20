@@ -9,8 +9,8 @@ These are the only two combinations.
 
 */
 
-// TC:- 2^t * k
-// SC:- k * x (k=auxilary space and x is number of combination)
+// TCom.:- 2^t * k
+// SCom:- k * x (k=auxilary space and x is number of combination)
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
          List<List<Integer>> ans = new ArrayList<>();
