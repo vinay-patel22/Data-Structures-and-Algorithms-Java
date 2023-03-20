@@ -1,6 +1,6 @@
 // Celling of number = Smallest element in array greater or = target
 // target na just agad no number...
-// Just return staart;
+// Just return start;
 public class Q1_Ceiling_Of_Number {
     public static void main(String[] args) {
         int[] arr = {1,3,5,6};
