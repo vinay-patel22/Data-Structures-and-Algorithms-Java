@@ -5,7 +5,6 @@ class twoStacks {
 	int size;
 	int top1, top2;
 
-	// Constructor
 	twoStacks(int n)
 	{
 		size = n;
@@ -14,12 +13,9 @@ class twoStacks {
 		top2 = n / 2;
 	}
 
-	// Method to push an element x to stack1
 	void push1(int x)
 	{
 
-		// There is at least one empty
-		// space for new element
 		if (top1 > 0) {
 			top1--;
 			arr[top1] = x;
@@ -31,13 +27,10 @@ class twoStacks {
 		}
 	}
 
-	// Method to push an element
-	// x to stack2
+
 	void push2(int x)
 	{
 
-		// There is at least one empty
-		// space for new element
 		if (top2 < size - 1) {
 			top2++;
 			arr[top2] = x;
@@ -49,7 +42,6 @@ class twoStacks {
 		}
 	}
 
-	// Method to pop an element from first stack
 	int pop1()
 	{
 		if (top1 <= size / 2) {
@@ -64,8 +56,7 @@ class twoStacks {
 		return 0;
 	}
 
-	// Method to pop an element
-	// from second stack
+	
 	int pop2()
 	{
 		if (top2 >= size / 2 + 1) {
@@ -80,9 +71,9 @@ class twoStacks {
 		return 1;
 	}
 };
-class GFG {
 
-	/* Driver program to test twoStacks class */
+class myClass {
+
 	public static void main(String[] args)
 	{
 		twoStacks ts = new twoStacks(5);
@@ -98,5 +89,3 @@ class GFG {
 						+ ": " + ts.pop2());
 	}
 }
-
-// This code is contributed by aashish1995
