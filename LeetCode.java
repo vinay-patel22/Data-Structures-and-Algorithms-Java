@@ -83,3 +83,50 @@ class Solution {
         return (qr.size() > qd.size()) ? "Radiant" : "Dire";
     }
 }
+
+
+
+
+// 1456. Maximum Number of Vowels in a Substring of Given Length
+
+
+class Solution {
+    public int maxVowels(String s, int k) {
+        // Call helper function to recursively compute maximum vowel count
+        return helperFun(s, k, 0, 0);
+    }
+    
+    // Helper function to compute maximum vowel count
+    private int helperFun(String s, int k, int i, int count) {
+        // Base case: return current count when we have processed the entire string
+        if (i == s.length()) {
+            return count;
+        }
+        
+        // Process the current character
+        char c = s.charAt(i);
+        int newCount = count;
+        if (isVowel(c)) {
+            // If the current character is a vowel, increment the count
+            newCount++;
+        }
+        
+        // If we have processed a window of size k, remove the leftmost character
+        if (i >= k) {
+            char removed = s.charAt(i - k);
+            if (isVowel(removed)) {
+                // If the removed character was a vowel, decrement the count
+                newCount--;
+            }
+        }
+        
+        // Recursively compute maximum vowel count for the rest of the string
+        return Math.max(newCount, helperFun(s, k, i + 1, newCount));
+    }
+    
+    // Helper function to check if a character is a vowel
+    private boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+}
+
