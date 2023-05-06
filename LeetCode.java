@@ -130,3 +130,67 @@ class Solution {
     }
 }
 
+
+
+
+
+// 1498. Number of Subsequences That Satisfy the Given Sum Condition
+
+// Approach to solve the question 
+
+/* 
+
+Sort the given array nums in ascending order.
+Initialize two pointers, left and right, to the first and last index of the array.
+Initialize a variable count to 0.
+Loop until the left pointer is less than or equal to the right pointer.
+In each iteration, check if the sum of the elements at the left and right pointers is less than or equal to the target.
+If the sum is less than or equal to the target, calculate the number of subsequences that can be formed by selecting the elements between the left and right pointers using the formula (2 ^ (right - left)) % (10 ^ 9 + 7).
+Add the count of subsequences to the count variable.
+If the sum is greater than the target, move the right pointer one index to the left.
+If the sum is less than the target, move the left pointer one index to the right.
+Return the count variable as the answer.
+
+*/
+
+// Below code is fail in the large test cases :)
+
+// class Solution {
+//     public int numSubseq(int[] nums, int target) {
+//         int MOD = 1000000007; // The modulo to be used for the calculation of the final answer
+//         Arrays.sort(nums); // Sort the input array in ascending order
+//         int left = 0, right = nums.length - 1, count = 0; // Initialize the left and right pointers to the start and end of the array respectively, and the count to 0
+//         while (left <= right) { // Loop until the left pointer is less than or equal to the right pointer
+//             if (nums[left] + nums[right] > target) { // If the sum of the elements at the left and right pointers is greater than the target
+//                 right--; // Move the right pointer one index to the left
+//             } else { // If the sum of the elements at the left and right pointers is less than or equal to the target
+//                 count = (count + (int) Math.pow(2, right - left)) % MOD; // Calculate the number of subsequences that can be formed by selecting the elements between the left and right pointers using the formula (2 ^ (right - left)) % (10 ^ 9 + 7) and add the count of subsequences to the count variable. We need to take the modulo with MOD to ensure that the value does not exceed the range of integer values.
+//                 left++; // Move the left pointer one index to the right
+//             }
+//         }
+//         return count; // Return the count variable as the answer
+//     }
+// }
+
+
+
+
+
+class Solution {
+    public int numSubseq(int[] nums, int target) {
+        Arrays.sort(nums);
+        int res = 0, n = nums.length, l = 0, r = n - 1, mod = (int)1e9 + 7;
+        int[] pows = new int[n];
+        pows[0] = 1;
+        for (int i = 1 ; i < n ; ++i)
+            pows[i] = pows[i - 1] * 2 % mod;
+        while (l <= r) {
+            if (nums[l] + nums[r] > target) {
+                r--;
+            } else {
+                res = (res + pows[r - l++]) % mod;
+            }
+        }
+        return res;
+    }
+}
