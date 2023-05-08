@@ -240,3 +240,38 @@ class Solution {
     }
 }
 
+
+
+
+// 1572. Matrix Diagonal Sum
+
+
+
+// The time complexity of this implementation is O(n), where n is the size of the matrix, and the space complexity is O(1), as it only uses a constant amount of additional memory.
+
+
+class Solution {
+    public int diagonalSum(int[][] mat) {
+        int sum = 0;
+        
+        // iterate over the primary diagonal
+        for(int i=0;i<mat.length;i++){
+            sum += mat[i][i];
+        }
+
+        // iterate over the secondary diagonal
+        for(int i=0;i<mat.length;i++){
+            sum += mat[i][mat.length-i-1];
+        }
+
+        // if the matrix is odd-sized,subtract the center element
+        if(mat.length % 2 == 1){
+            sum -= mat[mat.length/2][mat.length/2];
+        }
+
+        return sum;
+    }
+}
+
+
+
