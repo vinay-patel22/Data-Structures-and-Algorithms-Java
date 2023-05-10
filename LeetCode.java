@@ -324,3 +324,49 @@ class Solution {
         return ans;
     }
 }
+
+// 59. Spiral Matrix II
+
+
+class Solution {
+    public int[][] generateMatrix(int n) {
+
+
+        int[][] answerMatrix = new int[n][n];
+        int num = 1;
+        int rowStart = 0, rowEnd = n - 1;
+        int colStart = 0, colEnd = n - 1;
+        
+        while (rowStart <= rowEnd && colStart <= colEnd) {
+            // Fill the top row
+            for (int col = colStart; col <= colEnd; col++) {
+                answerMatrix[rowStart][col] = num++;
+            }
+            rowStart++;
+            
+            // Fill the right column
+            for (int row = rowStart; row <= rowEnd; row++) {
+                answerMatrix[row][colEnd] = num++;
+            }
+            colEnd--;
+            
+            if (rowStart <= rowEnd) {
+                // Fill the bottom row
+                for (int col = colEnd; col >= colStart; col--) {
+                    answerMatrix[rowEnd][col] = num++;
+                }
+                rowEnd--;
+            }
+            
+            if (colStart <= colEnd) {
+                // Fill the left column
+                for (int row = rowEnd; row >= rowStart; row--) {
+                    answerMatrix[row][colStart] = num++;
+                }
+                colStart++;
+            }
+        }
+        
+        return answerMatrix;
+    }
+}
