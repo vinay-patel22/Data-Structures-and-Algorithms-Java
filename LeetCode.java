@@ -370,3 +370,41 @@ class Solution {
         return answerMatrix;
     }
 }
+
+
+
+
+
+// 1035. Uncrossed Lines
+
+
+
+/* 
+Time Complexity: The time complexity of this solution is O(m * n), where m is the length of nums1 and n is the length of nums2. We iterate over each element of both arrays once to fill the dp array.
+
+Space Complexity: The space complexity is O(m * n) as well. We create a 2D dp array of size (m + 1) * (n + 1) to store the intermediate results.
+*/
+
+class Solution {
+    public int maxUncrossedLines(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        
+        // Create a 2D array to store the maximum uncrossed lines
+        int[][] dp = new int[m + 1][n + 1];
+        
+        // Fill the dp array using dynamic programming
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (nums1[i - 1] == nums2[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        
+        // Return the maximum uncrossed lines
+        return dp[m][n];
+    }
+}
