@@ -408,3 +408,47 @@ class Solution {
         return dp[m][n];
     }
 }
+
+// 2140. Solving Questions With Brainpower
+
+
+// This is standrized question of dp... i.e we have to take it or not take it..
+
+// Method 1:- Using recursion
+// Method 2:- Using memoization
+// Method 3:- Using tabula (Bottom-up)
+
+
+
+class Solution {
+    public long mostPoints(int[][] questions) {
+        // Get the number of questions
+        int n = questions.length;
+        
+        // Create an array called "dp" to store the maximum points at each question index
+        long[] dp = new long[n+1];
+        
+        // Initialize all elements of the "dp" array to 0
+        Arrays.fill(dp, 0);
+        
+        // Iterate through the questions from the last question to the first question
+        for(int i=n-1; i>=0 ;i--){
+            // Get the point value of the current question
+            int point = questions[i][0];
+            
+            // Get the jump distance of the current question
+            int jump = questions[i][1];
+
+            // Calculate the index of the next question to jump to
+            // Ensure that the index does not exceed the total number of questions
+            int nextQuestion = Math.min(n, i+jump+1);
+            
+            // Calculate the maximum number of points that can be earned starting from the current question
+            // The maximum is determined by either skipping the current question or choosing to answer it
+            dp[i] = Math.max(dp[i+1], point + dp[nextQuestion]);
+        }
+        
+        // Return the maximum number of points that can be earned starting from the first question
+        return dp[0];
+    }
+}
