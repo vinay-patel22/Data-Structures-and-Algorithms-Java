@@ -452,3 +452,38 @@ class Solution {
         return dp[0];
     }
 }
+
+
+
+
+// 2466. Count Ways To Build Good Strings
+
+
+
+import java.util.Arrays;
+
+class Solution {
+    int mod = (int) 1e9 + 7;
+    public int countGoodStrings(int low, int high, int zero, int one) {
+        int ans = 0;
+        int[] dp = new int[high + 1];
+        Arrays.fill(dp, -1);  // short way to fill dp array with -1 without using for loop.
+        for (int i = low; i <= high; i++) {
+            ans = (ans + helper(i, one, zero, dp)) % mod;
+        }
+        return ans;
+    }
+
+    int helper(int target, int one, int zero, int[] dp) {
+        // good string
+        if (target == 0)
+            return 1;
+        // not a good string
+        if (target < 0)
+            return 0;
+        if (dp[target] != -1)
+            return dp[target];
+        long sum = helper(target - one, one, zero, dp) + helper(target - zero, one, zero, dp);
+        return dp[target] = (int) (sum % mod);
+    }
+}
