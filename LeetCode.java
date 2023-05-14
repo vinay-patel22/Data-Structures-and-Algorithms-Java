@@ -487,3 +487,64 @@ class Solution {
         return dp[target] = (int) (sum % mod);
     }
 }
+
+
+// 1799. Maximize Score After N Operations
+
+// Intuition
+// The algorithm uses bit compression technique to mark the elements that have not been used yet, and then selects all possible pairs of these unselected elements to calculate their score. It does this by calling the 'gcd' function to calculate the GCD of each pair and multiplying it by the current turn number. It then recursively calls the 'dfs' function with the updated state, which removes the selected elements from the original state.
+
+// The 'dp' array is used to memoize the results of the subproblems, so that the algorithm can avoid redundant calculations.
+
+// Time complexity: O(2^n * n^2)
+// Space complexity: O(2^n)
+
+
+public class Solution {
+    public int maxScore(int[] nums) {
+        int n = nums.length;
+        dp = new int[1 << n]; // Initialize the dp array with size (2^n)
+        Arrays.fill(dp, 0); // Set all elements of dp array to 0
+        List<Integer> list = new ArrayList<>();
+        for (int num : nums) {
+            list.add(num);
+        }
+        return dfs(list, (1 << n) - 1, n / 2); // Start the DFS with full state and half of the operations remaining
+    }
+
+
+
+     int[] dp; // Array to store calculated scores for different states
+
+    // Helper method to calculate the greatest common divisor
+    public int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+
+    // Recursive method to perform DFS and calculate the maximum score
+    public int dfs(List<Integer> nums, int state, int current) {
+        if (current == 0) return 0; // Base case: No more operations left
+        if (dp[state] != 0) return dp[state]; // Return the precalculated score for the current state if available
+        int result = 0;
+
+        // Iterate over the indices of nums
+        for (int i = 0; i < nums.size(); i++) {
+            if ((state & (1 << i)) == 0) continue; // Skip if the element has already been used
+
+            // Iterate over the remaining indices
+            for (int j = i + 1; j < nums.size(); j++) {
+                if ((state & (1 << j)) == 0) continue; // Skip if the element has already been used
+
+                // Calculate the current score and recursively call dfs for the next state
+                result = Math.max(result, gcd(nums.get(i), nums.get(j)) * current
+                        + dfs(nums, (state & (~(1 << i)) & (~(1 << j))), current - 1));
+            }
+        }
+
+        dp[state] = result; // Store the calculated score for the current state
+        return result;
+    }
+
+
+}
