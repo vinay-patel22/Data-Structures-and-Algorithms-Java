@@ -588,3 +588,26 @@ class Solution {
 
     }
 }
+
+
+
+
+
+// 24. Swap Nodes in Pairs
+
+
+
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        
+        ListNode nextPair = head.next.next;
+        ListNode newHead = head.next;
+        head.next.next = head;
+        head.next = swapPairs(nextPair);
+
+        return newHead;
+    }
+}
