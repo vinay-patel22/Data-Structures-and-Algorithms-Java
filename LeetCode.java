@@ -657,3 +657,23 @@ class Solution {
         return maxSum;
     }
 }
+
+
+
+
+// 1557. Minimum Number of Vertices to Reach All Nodes
+class Solution {
+    public List<Integer> findSmallestSetOfVertices(int n, List<List<Integer>> edges) {
+     int []tempAns = new int[n];
+     for(List<Integer>edge : edges){
+         tempAns[edge.get(1)]++;
+     }   
+     List<Integer>result = new ArrayList<>();
+     for(int i=0;i<n;i++){
+         if(tempAns[i]==0){
+             result.add(i);
+         }
+     }
+     return result;
+    }
+}
