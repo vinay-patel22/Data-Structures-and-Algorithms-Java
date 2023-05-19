@@ -677,3 +677,53 @@ class Solution {
      return result;
     }
 }
+
+
+
+// 785. Is Graph Bipartite?
+
+// The time complexity of the code is O(V + E), where V is the number of vertices (nodes) in the graph and E is the number of edges.
+
+
+// space complexity is O(V).
+
+class Solution {
+    public boolean isBipartite(int[][] graph) {
+        int n = graph.length;
+        int[] colors = new int[n];
+
+        // Iterate over each node in the graph
+        for (int i = 0; i < n; i++) {
+            // If the node hasn't been visited yet, perform a DFS starting from that node
+            if (colors[i] == 0 && !dfs(graph, colors, i, 1)) {
+                // If the DFS returns false, indicating a violation of bipartiteness, return false
+                return false;
+            }
+        }
+
+        // If all nodes pass the bipartiteness check, return true
+        return true;
+    }
+
+    private boolean dfs(int[][] graph, int[] colors, int node, int color) {
+        // If the node has been assigned a color previously, check if it matches the current color
+        if (colors[node] != 0) {
+            return colors[node] == color;
+        }
+
+        // Assign the current color to the node
+        colors[node] = color;
+
+        // Explore the neighbors of the current node
+        for (int neighbor : graph[node]) {
+            // Recursively perform DFS on each neighbor, assigning the opposite color
+            if (!dfs(graph, colors, neighbor, -color)) {
+                // If any neighbor returns false, indicating a violation of bipartiteness, return false
+                return false;
+            }
+        }
+
+        // If all neighbors pass the bipartiteness check, return true
+        return true;
+    }
+}
