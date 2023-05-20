@@ -727,3 +727,98 @@ class Solution {
         return true;
     }
 }
+
+
+
+
+
+// 399. Evaluate Division
+
+
+
+// The time complexity of the code is O(E + Q * V), where E is the number of equations, Q is the number of queries, and V is the number of nodes in the graph.
+
+// The space complexity of the code is O(E + V), where E is the number of equations and V is the number of nodes in the graph.
+
+
+class Solution {
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        // Step 1: Build the graph from equations and values
+        HashMap<String, HashMap<String, Double>> graph = buildGraph(equations, values);
+        
+        // Step 2: Initialize the array to store the final answers
+        double[] finalAnswers = new double[queries.size()];
+
+        // Step 3: Iterate over each query
+        for (int i = 0; i < queries.size(); i++) {
+            // Get the dividend and divisor from the query
+            String dividend = queries.get(i).get(0);
+            String divisor = queries.get(i).get(1);
+
+            // Check if the graph doesn't contain either the dividend or the divisor
+            if (!graph.containsKey(dividend) || !graph.containsKey(divisor)) {
+                // If any of them is missing, set the result for that query as -1.0
+                finalAnswers[i] = -1.0;
+            } else {
+                // Step 4: Perform DFS to find the result for the current query
+                HashSet<String> visited = new HashSet<>();
+                double[] answer = {-1.0};
+                double temp = 1.0;
+                dfs(dividend, divisor, graph, visited, answer, temp);
+                finalAnswers[i] = answer[0];
+            }
+        }
+
+        // Step 5: Return the final array of answers
+        return finalAnswers;
+    }
+
+    // Depth-First Search (DFS) to find the result for a query
+    public void dfs(String node, String destination, HashMap<String, HashMap<String, Double>> graph,
+                    HashSet<String> visited, double[] answer, double temp) {
+        // If the current node has already been visited, return
+        if (visited.contains(node))
+            return;
+
+        // Mark the current node as visited
+        visited.add(node);
+
+        // If the current node is the destination, update the answer and return
+        if (node.equals(destination)) {
+            answer[0] = temp;
+            return;
+        }
+
+        // Iterate over the neighbors of the current node
+        for (Map.Entry<String, Double> entry : graph.get(node).entrySet()) {
+            String nextNode = entry.getKey();
+            double value = entry.getValue();
+
+            // Recursive call to explore the neighbor
+            dfs(nextNode, destination, graph, visited, answer, temp * value);
+        }
+    }
+
+    // Build the graph from equations and values
+    public HashMap<String, HashMap<String, Double>> buildGraph(List<List<String>> equations, double[] values) {
+        HashMap<String, HashMap<String, Double>> graph = new HashMap<>();
+
+        // Iterate over each equation and value
+        for (int i = 0; i < equations.size(); i++) {
+            String dividend = equations.get(i).get(0);
+            String divisor = equations.get(i).get(1);
+            double value = values[i];
+
+            // Create entries for the dividend and divisor if they don't exist in the graph
+            graph.putIfAbsent(dividend, new HashMap<>());
+            graph.putIfAbsent(divisor, new HashMap<>());
+
+            // Add the directed edges with the corresponding values to the graph
+            graph.get(dividend).put(divisor, value);
+            graph.get(divisor).put(dividend, 1.0 / value);
+        }
+
+        // Return the built graph
+        return graph;
+    }
+}
