@@ -899,3 +899,47 @@ class Solution {
         }
     }
 }
+
+
+
+
+// 347. Top K Frequent Elements
+
+
+// Overall, the time complexity of the code is O(n + (m log m) + (k log m)), and since m ≤ n, we can simplify it to O(n + k log n).
+
+// space complexity of the code is O(m + k).
+
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        // Create a HashMap to store the frequency count of each number
+        Map<Integer, Integer> counter = new HashMap<>();
+
+        // Count the frequency of each number in the input array
+        for (int num : nums) {
+            // Increment the count for the current number in the HashMap
+            counter.put(num, counter.getOrDefault(num, 0) + 1);
+        }
+
+        // Create a PriorityQueue to store the numbers based on their frequency
+        // The PriorityQueue will order the elements in descending order of frequency
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> counter.get(b) - counter.get(a));
+
+        // Add all the unique numbers from the HashMap to the PriorityQueue
+        for (int num : counter.keySet()) {
+            heap.offer(num);
+        }
+
+        // Create an array to store the top k frequent numbers
+        int[] result = new int[k];
+
+        // Extract the top k frequent numbers from the PriorityQueue
+        for (int i = 0; i < k; i++) {
+            result[i] = heap.poll();
+        }
+
+        // Return the array of top k frequent numbers
+        return result;
+    }
+}
