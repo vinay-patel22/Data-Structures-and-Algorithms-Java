@@ -943,3 +943,36 @@ class Solution {
         return result;
     }
 }
+
+
+// 703. Kth Largest Element in a Stream
+
+
+
+//  The time complexity of adding an element is O(log k) since it involves inserting an element into a priority queue (heap) with a maximum size of k. The space complexity is O(k) since the heap stores only the k largest elements.
+
+
+class KthLargest {
+
+    private PriorityQueue<Integer>heap = new PriorityQueue<>();
+    int k;
+
+    public KthLargest(int k, int[] nums) {
+        this.k=k;
+        for(int n:nums){
+            add(n);
+        }
+    }
+    
+    public int add(int val) {
+        heap.offer(val);
+        if(heap.size()>k)heap.poll();
+        return heap.peek();
+    }
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
