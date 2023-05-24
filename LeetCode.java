@@ -976,3 +976,49 @@ class KthLargest {
  * KthLargest obj = new KthLargest(k, nums);
  * int param_1 = obj.add(val);
  */
+
+
+
+
+
+
+// 2542. Maximum Subsequence Score
+
+
+
+
+// Time complexity: O(n∗log(n))
+// Space complexity: O(n)
+
+class Solution {
+  public long maxScore(int[] nums1, int[] nums2, int k) {
+    var n = nums1.length;
+    var arr = new int[n][2];
+
+    // Create a 2D array `arr` to store pairs (nums1[i], nums2[i])
+    for (var i=0; i<n; i++)
+      arr[i] = new int[] {nums1[i], nums2[i]};
+
+    // Sort the `arr` based on the second element of each pair in descending order
+    Arrays.sort(arr, (a, b) -> Integer.compare(b[1], a[1]));
+
+    long ans = 0, sum = 0;
+    var heap = new PriorityQueue<Integer>();
+
+    // Iterate over the `arr` array
+    for (var i=0; i<n; i++) {
+      // Add nums1[i] to the heap and update the sum
+      heap.offer(arr[i][0]);
+      sum += arr[i][0];
+
+      // If the heap size is larger than k, remove the smallest element and update the sum
+      if (i >= k)
+        sum -= heap.poll();
+      
+      // If we have considered k elements, calculate the current score and update the maximum score
+      if (i >= k-1)
+        ans = Math.max(ans, sum * arr[i][1]);
+    }
+    return ans;
+  }
+}
