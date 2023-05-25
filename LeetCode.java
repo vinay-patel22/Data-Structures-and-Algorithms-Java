@@ -1022,3 +1022,38 @@ class Solution {
     return ans;
   }
 }
+
+
+// 837. New 21 Game
+
+
+class Solution {
+    public double new21Game(int n, int k, int maxPts) {
+        // Check if Alice instantly wins or loses
+        if (k == 0 || n >= k + maxPts)
+            return 1.0;
+
+        // Create an array to store the probabilities
+        double[] dp = new double[n + 1];
+        dp[0] = 1.0;  // Base case: Alice starts with 0 points
+        double sum = 1.0;  // Cumulative sum of probabilities
+        double probability = 0.0;  // Cumulative probability for totals >= k and <= n
+
+        // Calculate probabilities using dynamic programming
+        for (int i = 1; i <= n; i++) {
+            dp[i] = sum / maxPts;  // Calculate the probability for current point total
+
+            // Update the cumulative sum and probability
+            if (i < k)
+                sum += dp[i];
+            else
+                probability += dp[i];
+
+            // Adjust the cumulative sum by removing the old probability
+            if (i - maxPts >= 0)
+                sum -= dp[i - maxPts];
+        }
+
+        return probability;  // Return the probability for totals >= k and <= n
+    }
+}
