@@ -1133,3 +1133,67 @@ class Solution {
             return "Tie";
     }
 }
+
+
+
+// 1547. Minimum Cost to Cut a Stick
+
+
+class Solution {
+    public int minCost(int n, int[] cuts) {
+            // Arrays.sort(cuts);
+	    	// int ans = helper1(0,n,0,cuts.length-1,cuts);
+	      	// return ans;
+
+            Arrays.sort(cuts);
+		int[][] dp = new int[cuts.length][cuts.length];
+		for(int i=0;i<dp.length;i++)
+		{
+			Arrays.fill(dp[i],-1);
+		}
+		int ans = helper2(0,n,0,cuts.length-1,cuts,dp,Integer.MAX_VALUE);
+        return ans;
+
+    }
+    // Time Limit Exceeded (We Use Recursion)
+    
+    // int helper1(int x , int y , int z , int n,int[] cuts)   
+	// {
+	// 	if(y<=x || n < z)
+	// 		return 0;
+		
+	// 	int ans = Integer.MAX_VALUE;
+	// 	for( int i=z; i<=n; i++)
+	// 	{
+	// 		int currentCut = cuts[i];
+	// 		int currentCost = y - x;
+	// 		int left = helper(x,currentCut,z,i-1,cuts);
+	// 		int right = helper(currentCut,y,i+1,n,cuts);
+	// 		int cost = currentCost + left + right;
+	// 		ans = Math.min(cost,ans);
+	// 	}
+	// 	return ans;
+	// }
+
+    // Recursion + Memoization : T.C = O(n) , S.C = O(n)+O(n)
+    int helper2(int x , int y , int z , int n,int[] cuts,int [][]dp,int min){
+		if(y<=x || n < z)
+			return 0;
+		
+        if(dp[z][n] != -1){
+            return dp[z][n];
+        }
+		int ans = Integer.MAX_VALUE;
+		for( int i=z; i<=n; i++)
+		{
+			int currentCut = cuts[i];
+			int currentCost = y - x;
+			int left = helper2(x,currentCut,z,i-1,cuts,dp,min);
+			int right =helper2(currentCut,y,i+1,n,cuts,dp,min);
+			int cost = currentCost + left + right;
+            min = Math.min(cost,min);
+			dp[z][n] = min;
+		}
+		return min;
+	}
+}
