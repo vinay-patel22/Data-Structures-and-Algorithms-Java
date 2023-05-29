@@ -1,3 +1,4 @@
+
 // Input: nums1 = [1,2,3], nums2 = [2,4,6]
 // Output: [[1,3],[4,6]]
 // Explanation:
@@ -1197,3 +1198,53 @@ class Solution {
 		return min;
 	}
 }
+
+
+
+// 1603. Design Parking System
+
+
+
+/*
+Approach:
+The approach for the "Design Parking System" problem is to maintain a data structure that keeps track of the number of available parking spots for each car type. In this case, we can use a list or an array to store the available spots for big, medium, and small cars.
+
+Initialize the parking system: In the constructor or initialization method, store the number of available spots for each car type in the data structure (list or array).
+
+Add a car: In the addCar method, check if there is an available spot for the specified car type. If the number of available spots for that car type is greater than 0, decrement the count of available spots for that car type and return true to indicate a successful addition. Otherwise, return false to indicate that no parking spot is available for that car type.
+
+Intuition:
+The parking system is designed to keep track of available parking spots for different car types. By maintaining the count of available spots for each car type, we can efficiently check and manage the parking availability for incoming cars.
+
+When initializing the parking system, we store the initial count of available spots for each car type. This allows us to keep track of the available spots throughout the parking process.
+
+When adding a car, we check if there is an available spot for the specified car type. If so, we decrement the count of available spots for that car type and indicate a successful addition. Otherwise, we indicate that no parking spot is available for that car type.
+ */
+
+// Time and space is :- O(1)
+
+
+class ParkingSystem {
+    private int[] spots;  // Array to store the available spots for each car type
+
+    // Constructor to initialize the parking system with the given number of spots for each car type
+    public ParkingSystem(int big, int medium, int small) {
+        spots = new int[]{big, medium, small};  // Store the available spots in the spots array
+    }
+
+    // Method to add a car to the parking system
+    public boolean addCar(int carType) {
+        if (spots[carType - 1] > 0) {  // If there are available spots for the given car type
+            spots[carType - 1]--;  // Decrement the available spots for that car type
+            return true;  // Return true to indicate successful parking
+        } else {
+            return false;  // Return false to indicate no available spots for that car type
+        }
+    }
+}
+
+/**
+ * Your ParkingSystem object will be instantiated and called as such:
+ * ParkingSystem obj = new ParkingSystem(big, medium, small);
+ * boolean param_1 = obj.addCar(carType);
+ */
