@@ -1,4 +1,3 @@
-
 // Input: nums1 = [1,2,3], nums2 = [2,4,6]
 // Output: [[1,3],[4,6]]
 // Explanation:
@@ -1247,4 +1246,63 @@ class ParkingSystem {
  * Your ParkingSystem object will be instantiated and called as such:
  * ParkingSystem obj = new ParkingSystem(big, medium, small);
  * boolean param_1 = obj.addCar(carType);
+ */
+
+
+
+
+
+
+
+// 705. Design HashSet
+
+
+
+// Time :- O(1)
+// Space :- O(n)
+
+class MyHashSet {
+    private int size;                       // Number of buckets
+    private List<List<Integer>> buckets;    // Buckets for storing the elements
+
+    public MyHashSet() {
+        size = 1000;                        // Default size of 1000
+        buckets = new ArrayList<>(size);    // Create an ArrayList of 'size' buckets
+        for (int i = 0; i < size; i++) {
+            buckets.add(new LinkedList<>());    // Initialize each bucket as a LinkedList
+        }
+    }
+
+    public void add(int key) {
+        int index = hash(key);               // Get the index of the bucket for the given key
+        List<Integer> bucket = buckets.get(index);    // Get the bucket at the calculated index
+        if (!bucket.contains(key)) {
+            bucket.add(key);                 // Add key to the bucket if it doesn't already exist
+        }
+    }
+
+    public void remove(int key) {
+        int index = hash(key);               // Get the index of the bucket for the given key
+        List<Integer> bucket = buckets.get(index);    // Get the bucket at the calculated index
+        bucket.remove(Integer.valueOf(key)); // Remove key from the bucket
+    }
+
+    public boolean contains(int key) {
+        int index = hash(key);               // Get the index of the bucket for the given key
+        List<Integer> bucket = buckets.get(index);    // Get the bucket at the calculated index
+        return bucket.contains(key);        // Check if the key exists in the bucket
+    }
+
+    private int hash(int key) {
+        return key % size;                   // Use the modulo operation to determine the index of the bucket
+    }
+}
+
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
  */
