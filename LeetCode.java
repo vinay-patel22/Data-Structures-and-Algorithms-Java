@@ -1306,3 +1306,78 @@ class MyHashSet {
  * obj.remove(key);
  * boolean param_3 = obj.contains(key);
  */
+
+
+
+
+
+// 1396. Design Underground System
+
+// Time :- O(1)
+// The space complexity is O(N + M), where N is the number of check-ins made and M is the number of unique start and end station combinations.
+
+
+class UndergroundSystem {
+    private Map<Integer, CheckInData> checkIns; // Track check-ins using a HashMap
+    private Map<String, TimeData> travelTimes; // Track travel times using a single HashMap
+
+    public UndergroundSystem() {
+        checkIns = new HashMap<>(); // Initialize the check-ins map
+        travelTimes = new HashMap<>(); // Initialize the travel times map
+    }
+
+    public void checkIn(int id, String stationName, int t) {
+        checkIns.put(id, new CheckInData(stationName, t)); // Store the check-in data in the check-ins map
+    }
+
+    public void checkOut(int id, String stationName, int t) {
+        CheckInData checkInData = checkIns.get(id); // Retrieve the check-in data for the given id
+        String startStation = checkInData.stationName;
+        int startTime = checkInData.time;
+
+        // Calculate travel time and update the travelTimes data structure
+        String routeKey = startStation + "_" + stationName; // Create a composite key for the route
+        TimeData timeData = travelTimes.getOrDefault(routeKey, new TimeData()); // Retrieve or create TimeData for the route
+        timeData.totalTime += t - startTime; // Update the total time by adding the difference between check-in and check-out time
+        timeData.count++; // Increment the count to track the number of trips
+
+        travelTimes.put(routeKey, timeData); // Update the travelTimes map with the updated TimeData
+
+        checkIns.remove(id); // Remove the check-in data once check-out is recorded
+    }
+
+    public double getAverageTime(String startStation, String endStation) {
+        String routeKey = startStation + "_" + endStation; // Create the composite key for the route
+        if (travelTimes.containsKey(routeKey)) {
+            TimeData timeData = travelTimes.get(routeKey); // Retrieve the TimeData for the given route
+            return (double) timeData.totalTime / timeData.count; // Calculate and return the average travel time
+        }
+        return 0.0; // If there are no records for the given route, return 0.0
+    }
+
+    // Internal class to store check-in data
+    private static class CheckInData {
+        private String stationName;
+        private int time;
+
+        public CheckInData(String stationName, int time) {
+            this.stationName = stationName;
+            this.time = time;
+        }
+    }
+
+    // Internal class to store travel time data
+    private static class TimeData {
+        private int totalTime;
+        private int count;
+    }
+}
+
+
+/**
+ * Your UndergroundSystem object will be instantiated and called as such:
+ * UndergroundSystem obj = new UndergroundSystem();
+ * obj.checkIn(id,stationName,t);
+ * obj.checkOut(id,stationName,t);
+ * double param_3 = obj.getAverageTime(startStation,endStation);
+ */
