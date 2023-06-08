@@ -12,7 +12,8 @@ class Patterns {
         // pattern10(5);
         // pattern11(5);
         // pattern12(5);
-        pattern13(5);
+        // pattern13(5);
+        pattern14(5);
 
     }
 
@@ -262,5 +263,21 @@ class Patterns {
         }
     }
 
+    public static void pattern14(int n){
+
+    // A
+    // AB        
+    // ABC       
+    // ABCD      
+    // ABCDE  
+
+        for (int i = 0; i < n; i++) {
+            for (char ch = 'A'; ch <= 'A'+i; ch++) {
+                System.out.print(ch);
+            }
+            System.out.println();
+        }
+
+    }
 
 }
