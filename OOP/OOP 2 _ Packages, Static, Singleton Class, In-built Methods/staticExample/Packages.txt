@@ -1,0 +1,5 @@
+Packages are nothing but like a folder.
+
+we have different Packages that will use different code or logic we can use it using import.
+
+We can import the things from other Packages and we have use it.

@@ -1,0 +1,17 @@
+Access Control (Access Modifiers)
+
+private
+public 
+default
+protected
+--> REFER table
+
+
+
+Packages
+
+2 types
+User defined
+in-built
+
+

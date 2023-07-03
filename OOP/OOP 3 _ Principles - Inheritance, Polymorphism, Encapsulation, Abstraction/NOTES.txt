@@ -1,0 +1,131 @@
+NOTE :- Evry class is extends the Object class by default
+
+IN OOPs 4 main principles
+1-> Inheritance
+2-> Polymorphism
+3-> Encapsulation
+4-> Abstraction
+
+
+********************************
+
+1-> Inheritance
+
+a) Child class is inheriting propertis from base class.
+b) extends --> keyword is used to inheriting..
+
+
+//Syntax
+class Child extends Base{
+    
+}
+
+super(); -> keyword that call parent class 
+
+There are 5 types of Inheritance
+
+1. single Inheritance
+2. multilevel Inheritance
+3. multiple Inheritance ( Not in java. but we will do using interface)
+4. Hierarchial Inheritance
+5. Hybrid Inheritance(single+multiple)(Not available in java.. implement in interface).
+
+********************************
+
+
+
+********************************
+
+2-> Polymorphism
+
+Poly -> many
+morphism-> ways to respresent
+
+2 types
+1. compile time / static Polymorphism
+-> method overloading(constructor overloading)
+-> same name but different argument,return types,ordering
+
+2. run time / dynamic Polymorphism
+
+-> method overriding
+-> everything is same but function(method) body is not same.
+-> @Override (used to check .. It is known as annotation)
+
+
+//Example 
+
+Shape shape = new Shape();
+Shape circle = new Circle();
+Shape square = new Square();
+
+circle.area();
+
+-> Here object(Refernce variable) is Shape class but is call the child class.
+
+
+
+
+parent obj = new Child();
+Here, which method will be called depends on Chile()... This is known as Upcasting.
+
+And the entire process is known as method overriding and it how works.
+
+
+How the java known which method is to run ??
+--> Dynamic method dispatch
+
+
+-> We cannot override any final method. (final is the keyword here)
+
+
+-> late binding
+-> Early binding (final keyword)
+
+-> We cannot override static
+-> It can be inheritade
+
+
+-> overriding is depends on the objects.
+-> static does not depends on the objects heance not override static.
+
+
+********************************
+
+
+********************************
+
+3--> Encapsulation
+
+wrapping up the implementation of the data member and method is a class.
+
+Hides the code and data into single entite to prtotacetd the data.
+
+
+4--> Abstraction
+
+Hinding the unneccasry deatails and showing valuable information.
+
+Ex:- Take key of car and start the car. You do not need to worry how the engine work,how car is starting..
+
+-> How is the doing internally it not care about
+
+-> Abstraction mean we are able to access & modify the method and otehr things..but how it work we do not need to worry..  
+
+
+MAIN different Between Encapsulation and Abstraction is...
+Abstraction is solving the design level issue.
+Encapsulation is solving the implementation level issue.
+
+
+1-> Abstraction :- interfaces, abstact class
+2-> Encapsulation:- public,private,prtotacetd
+
+
+1-> Abstraction->It is process of gaining the information.
+
+
+1 -> Data Hinding focus on data secrity ( Data is always private)
+2 -> Encapsulation focus on Hinding the complexity of the system. 
+
+-> Encapsulation is the sub process of data Hinding.
